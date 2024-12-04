@@ -1,18 +1,25 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import Navbar from './componentes/Navbar';
 import Container from './componentes/Container';
 import Footer from './componentes/Footer';
 import './App.css';
 
 function App() {
-  const [movies, setMovies] = useState([]); // Cambia el estado a una lista de películas
-  const [title, setTitle] = useState('');
+  const [movies, setMovies] = useState([]);
+  const [title, setTitle] = useState(''); // Estado para el título
 
   useEffect(() => {
-    if (title) {
-      fetch(`http://www.omdbapi.com/?apikey=5d1b649d&t=${title}`)
-        .then(res => res.json())
-        .then(data => {
+    const fetchMovie = async () => {
+      if (title.trim()) {
+        try {
+          const response = await axios.get(`http://www.omdbapi.com/`, {
+            params: {
+              apikey: '5d1b649d',
+              t: title.trim(),
+            },
+          });
+          const data = response.data;
           if (data.Response === "True") {
             const newMovie = {
               year: data.Year,
@@ -20,19 +27,41 @@ function App() {
               poster: data.Poster,
               title: data.Title,
             };
-            setMovies(prevMovies => [...prevMovies, newMovie]); // Añade la nueva película a la lista existente
+
+            setMovies((prevMovies) => {
+              // Evitar duplicados
+              if (prevMovies.some((movie) => movie.title === newMovie.title)) {
+                return prevMovies;
+              }
+              return [...prevMovies, newMovie];
+            });
           } else {
-            console.error('Movie not found');
+            alert('Película no encontrada.');
           }
-        })
-        .catch(error => console.error('Error fetching data:', error));
+        } catch (error) {
+          console.error('Error fetching data:', error);
+          alert('Ocurrió un error al buscar la película.');
+        }
+      }
+    };
+
+    fetchMovie();
+  }, [title]); // Ejecuta la búsqueda cada vez que el título cambia
+
+   // Eliminar una película
+   const removeMovie = async (id) => {
+    try {
+      await axios.delete(`${API_URL}/${id}`); // Realizar la solicitud DELETE
+      setMovies((prevMovies) => prevMovies.filter((movie) => movie.id !== id)); // Actualizar estado
+    } catch (error) {
+      console.error('Error deleting movie:', error);
     }
-  }, [title]);
+  };
 
   return (
     <div className="App">
-      <Navbar setTitle={setTitle} />
-      <Container movies={movies} /> {/* Pasa la lista de películas a Container */}
+      <Navbar setTitle={setTitle} /> {/* Pasamos setTitle como prop */}
+      <Container movies={movies} />
       <Footer />
     </div>
   );

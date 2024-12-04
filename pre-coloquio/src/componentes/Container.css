@@ -1,0 +1,52 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px;
+    margin-bottom: 5%;
+  }
+  
+  .movie-poster {
+    width: 300px;
+    height: auto;
+    margin-bottom: 10px;
+  }
+  
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+  
+  .card {
+    background-color: #f8f9fa;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card h3 {
+    color: #333;
+  }
+  
+  .card p {
+    color: #666;
+  }
+  
+  .card img {
+    width: 100%;
+    height: auto;
+    border-radius: 10%;
+  }
+  
+  .inicio h1{
+    display: flex;
+    margin-left: 100%;
+    margin-right: -100%;
+  }
+  
+  .inicio   p{
+    display: flex;
+    margin-left: 115%;
+    margin-right: -100%;
+  }

@@ -1,0 +1,44 @@
+.navbar {
+    background-color: #333;
+    color: white;
+    padding: 1em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .navbar-brand {
+    display: flex;
+    margin-left: -65%;
+    font-size: 1.5em;
+  }
+  
+  .navbar-form {
+    display: flex;
+  }
+  
+  .navbar-input {
+    padding: 0.5em;
+    margin-right: 0.5em;
+    border: none;
+    border-radius: 4px;
+  }
+  
+  .navbar-button {
+    padding: 0.5em 1em;
+    background-color: #555;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .navbar-button:hover {
+    background-color: #777;
+  }
+  
+  .logo-navbar{
+    display: flex;
+    height: 4rem;
+  }
+  
